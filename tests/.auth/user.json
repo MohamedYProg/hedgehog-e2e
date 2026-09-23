@@ -1,0 +1,46 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "http://127.0.0.1:3000",
+      "localStorage": [
+        {
+          "name": "currentProjectId",
+          "value": "cmnfxulg20000uafwax39k7n3"
+        },
+        {
+          "name": "hedgehog_permissions_cache",
+          "value": "{\"permissions\":[\"attachments.create\",\"attachments.delete\",\"attachments.read\",\"attachments.update\",\"comments.create\",\"comments.delete\",\"comments.read\",\"comments.update\",\"components.create\",\"components.delete\",\"components.export\",\"components.import\",\"components.read\",\"components.update\",\"custom-fields.create\",\"custom-fields.delete\",\"custom-fields.read\",\"custom-fields.update\",\"cycles.create\",\"cycles.delete\",\"cycles.read\",\"cycles.update\",\"defects.assign\",\"defects.bulk_update\",\"defects.create\",\"defects.delete\",\"defects.export\",\"defects.import\",\"defects.read\",\"defects.transition\",\"defects.update\",\"environments.create\",\"environments.delete\",\"environments.read\",\"environments.update\",\"groups.create\",\"groups.delete\",\"groups.read\",\"groups.update\",\"linked-items.create\",\"linked-items.delete\",\"linked-items.read\",\"linked-items.unlink\",\"linked-items.update\",\"non-project-assignment\",\"permissions.create\",\"permissions.read\",\"project-assignment-enabled\",\"projects.create\",\"projects.delete\",\"projects.manage_members\",\"projects.read\",\"projects.update\",\"reports.export\",\"reports.read\",\"requirements.assign\",\"requirements.create\",\"requirements.delete\",\"requirements.export\",\"requirements.import\",\"requirements.read\",\"requirements.update\",\"role-assignments.create\",\"role-assignments.delete\",\"role-assignments.read\",\"roles.create\",\"roles.delete\",\"roles.read\",\"roles.update\",\"search.global\",\"status-definitions.create\",\"status-definitions.delete\",\"status-definitions.read\",\"status-definitions.update\",\"status-transitions.create\",\"status-transitions.delete\",\"status-transitions.read\",\"system.admin\",\"test-cases.bulk_update\",\"test-cases.create\",\"test-cases.delete\",\"test-cases.export\",\"test-cases.import\",\"test-cases.read\",\"test-cases.update\",\"test-plans.assign\",\"test-plans.create\",\"test-plans.delete\",\"test-plans.read\",\"test-plans.update\",\"test-runs.assign\",\"test-runs.create\",\"test-runs.delete\",\"test-runs.execute\",\"test-runs.read\",\"test-runs.start\",\"test-runs.update\",\"test-suites.create\",\"test-suites.delete\",\"test-suites.manage_cases\",\"test-suites.read\",\"test-suites.reorder\",\"test-suites.update\",\"test.permission\",\"users.create\",\"users.delete\",\"users.manage_roles\",\"users.read\",\"users.update\"],\"permissionsByCategory\":{\"DEFECT_MANAGEMENT\":[\"defects.assign\",\"defects.bulk_update\",\"defects.create\",\"defects.delete\",\"defects.export\",\"defects.import\",\"defects.read\",\"defects.transition\",\"defects.update\"],\"REQUIREMENTS_MANAGEMENT\":[\"requirements.assign\",\"requirements.create\",\"requirements.delete\",\"requirements.export\",\"requirements.import\",\"requirements.read\",\"requirements.update\"],\"COMPONENT_MANAGEMENT\":[\"components.create\",\"components.delete\",\"components.export\",\"components.import\",\"components.read\",\"components.update\"],\"PROJECT_MANAGEMENT\":[\"non-project-assignment\",\"project-assignment-enabled\",\"projects.create\",\"projects.delete\",\"projects.manage_members\",\"projects.read\",\"projects.update\",\"reports.export\",\"reports.read\"],\"USER_MANAGEMENT\":[\"users.create\",\"users.delete\",\"users.manage_roles\",\"users.read\",\"users.update\"],\"SYSTEM_ADMINISTRATION\":[\"custom-fields.create\",\"custom-fields.delete\",\"custom-fields.read\",\"custom-fields.update\",\"groups.create\",\"groups.delete\",\"groups.read\",\"groups.update\",\"permissions.create\",\"permissions.read\",\"role-assignments.create\",\"role-assignments.delete\",\"role-assignments.read\",\"roles.create\",\"roles.delete\",\"roles.read\",\"roles.update\",\"status-definitions.create\",\"status-definitions.delete\",\"status-definitions.read\",\"status-definitions.update\",\"status-transitions.create\",\"status-transitions.delete\",\"status-transitions.read\",\"system.admin\",\"test.permission\"],\"TEST_MANAGEMENT\":[\"cycles.create\",\"cycles.delete\",\"cycles.read\",\"cycles.update\",\"environments.create\",\"environments.delete\",\"environments.read\",\"environments.update\",\"test-cases.bulk_update\",\"test-cases.create\",\"test-cases.delete\",\"test-cases.export\",\"test-cases.import\",\"test-cases.read\",\"test-cases.update\",\"test-plans.assign\",\"test-plans.create\",\"test-plans.delete\",\"test-plans.read\",\"test-plans.update\",\"test-runs.assign\",\"test-runs.create\",\"test-runs.delete\",\"test-runs.execute\",\"test-runs.read\",\"test-runs.start\",\"test-runs.update\",\"test-suites.create\",\"test-suites.delete\",\"test-suites.manage_cases\",\"test-suites.read\",\"test-suites.reorder\",\"test-suites.update\"],\"COLLABORATION\":[\"attachments.create\",\"attachments.delete\",\"attachments.read\",\"attachments.update\",\"comments.create\",\"comments.delete\",\"comments.read\",\"comments.update\",\"linked-items.create\",\"linked-items.delete\",\"linked-items.read\",\"linked-items.unlink\",\"linked-items.update\",\"search.global\"]},\"isAdministrator\":true,\"projectId\":null,\"userId\":\"cmej734tk0000p9prm35zvv5q\",\"fetchedAt\":1790150849097}"
+        },
+        {
+          "name": "user",
+          "value": "{\"id\":\"cmej734tk0000p9prm35zvv5q\",\"loginName\":\"admin\",\"firstName\":\"Updated\",\"lastName\":\"User\",\"email\":\"admin@hedgehog.com\",\"isAdministrator\":true,\"lastLogin\":\"2026-08-30T10:59:04.994Z\"}"
+        },
+        {
+          "name": "sidebarPinned",
+          "value": "true"
+        },
+        {
+          "name": "accessToken",
+          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtZWo3MzR0azAwMDBwOXBybTM1enZ2NXEiLCJlbWFpbCI6ImFkbWluQGhlZGdlaG9nLmNvbSIsImxvZ2luTmFtZSI6ImFkbWluIiwiaXNBZG1pbmlzdHJhdG9yIjp0cnVlLCJpYXQiOjE3OTAxNTA4NDQsImV4cCI6MTc5MjU1MDg0NH0.QPCPnp07CwlqMPxFul5jj9W2YISepRylqtqCrETTnZI"
+        },
+        {
+          "name": "userEmail",
+          "value": "admin@hedgehog.com"
+        },
+        {
+          "name": "refreshToken",
+          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbWVqNzM0dGswMDAwcDlwcm0zNXp2djVxIiwiaWF0IjoxNzkwMTUwODQ0LCJleHAiOjE3OTA3NTU2NDR9.k0sJXUNAyWTQlFfD2AhpnEm6j6pOPFDTWkcWKHp02hA"
+        },
+        {
+          "name": "userId",
+          "value": "cmej734tk0000p9prm35zvv5q"
+        },
+        {
+          "name": "currentProjectData",
+          "value": "{\"id\":\"cmnfxulg20000uafwax39k7n3\",\"name\":\"TMT\",\"description\":\"test management tool \",\"abbreviation\":\"TMTT\",\"status\":\"ACTIVE\",\"createdAt\":\"2026-05-11T07:48:59.968Z\",\"roles\":[\"System Administrator\"]}"
+        }
+      ]
+    }
+  ]
+}
