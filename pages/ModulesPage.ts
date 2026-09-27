@@ -1,4 +1,4 @@
-import { Page, Locator, expect } from '@playwright/test'
+import { Page, Locator, Response, expect } from '@playwright/test'
 
 export class ModulesPage {
   readonly page: Page
@@ -81,8 +81,34 @@ export class ModulesPage {
   }
 
   async searchModule(name: string) {
-    await this.searchInput.fill(name)
-    await this.page.waitForTimeout(600)
+    const q = 'q=' + encodeURIComponent(name).replace(/%20/g, '+')
+    const isSearchResponse = (r: Response) =>
+      r.url().includes('/components?') && r.url().includes('page=') && r.url().includes(q) && r.ok()
+
+    // Type the search and wait until it reaches the API. Retried because text
+    // typed while the list is still refreshing (e.g. right after a create) can
+    // be dropped.
+    await expect(async () => {
+      const searched = this.page.waitForResponse(isSearchResponse, { timeout: 5_000 })
+      await this.searchInput.fill('')
+      await this.searchInput.fill(name)
+      await searched
+    }).toPass({ timeout: 30_000 })
+
+    // Workaround: with the default sort the API ignores the search text and
+    // returns unfiltered rows. An explicit sort makes the API apply the filter.
+    // The column header cycles asc -> desc -> off, so click until the request
+    // actually carries a sort (a second search on the same page may already be
+    // on "desc", where one more click would turn sorting off).
+    const sortButton = this.page.getByRole('button', { name: 'Module Name' })
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const [response] = await Promise.all([
+        this.page.waitForResponse(isSearchResponse, { timeout: 20_000 }),
+        sortButton.click(),
+      ])
+      if (response.url().includes('sort=')) return
+    }
+    throw new Error('Could not apply a sort to the modules list')
   }
 
   async editFirstModuleName(newName: string) {

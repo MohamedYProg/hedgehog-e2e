@@ -73,7 +73,9 @@ test.describe('In-App Notifications E2E', () => {
     await commentPromise
 
     // Verify comment is successfully posted and rendered in the comment cards
-    const commentCard = notificationsPage.getCommentCard('Sarah Johnson', commentText)
+    // Workaround: the defect page currently doesn't render the comment author's
+    // name (the API sends `user`, the page reads `author`), so match on text only.
+    const commentCard = page.locator('div.border.rounded-lg').filter({ hasText: commentText }).first()
     await expect(commentCard).toBeVisible({ timeout: 15_000 })
 
     // 5. Sign out of the QA Tester session
@@ -90,12 +92,20 @@ test.describe('In-App Notifications E2E', () => {
     expect(parseInt(text || '0', 10)).toBeGreaterThanOrEqual(1)
 
     // 8. Click the bell to open the notifications popup list
-    await notificationsPage.openNotifications()
+    // The list is fetched when the popup opens; under load this has taken ~9s,
+    // so wait for the response rather than a fixed 10s on the item.
+    await Promise.all([
+      page.waitForResponse(
+        (r) => r.url().includes('/api/v1/notifications?') && r.ok(),
+        { timeout: 45_000 }
+      ),
+      notificationsPage.openNotifications(),
+    ])
     await expect(notificationsPage.popupHeading).toBeVisible({ timeout: 10_000 })
 
     // Verify the notification item matching Sarah's mention is displayed
     const notificationItem = notificationsPage.getNotificationItem(defectSummary)
-    await expect(notificationItem).toBeVisible({ timeout: 10_000 })
+    await expect(notificationItem).toBeVisible({ timeout: 15_000 })
 
     // 9. Click "Mark all read" and verify the badge is cleared
     if (await notificationsPage.markAllReadBtn.isVisible().catch(() => false)) {

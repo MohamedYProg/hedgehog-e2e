@@ -80,6 +80,24 @@ export class TestRepositoryPage {
     await expect(this.searchInput).toBeVisible({ timeout: 30_000 })
   }
 
+  // Workaround: the app links to test cases by business ID (e.g. TMTT-TC-12),
+  // which the API currently rejects with 404. The row checkbox label carries
+  // the internal ID, which the API does accept.
+  async getInternalId(row: Locator): Promise<string> {
+    const label = await row.getByRole('checkbox').first().getAttribute('aria-label')
+    const id = label?.replace('Select test case ', '').trim()
+    if (!id) throw new Error('Could not read test case id from row checkbox')
+    return id
+  }
+
+  async gotoDetail(id: string) {
+    await this.page.goto(`${this.listUrl}/browse/${id}`)
+  }
+
+  async gotoEdit(id: string) {
+    await this.page.goto(`${this.listUrl}/edit/${id}`)
+  }
+
   async createNewSuite(name: string) {
     await this.createMenuButton.click()
     await this.newTestSuiteMenuItem.click()

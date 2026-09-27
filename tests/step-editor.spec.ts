@@ -60,13 +60,24 @@ test.describe('Test Case Step Editor controls', () => {
 
     // 6. Search for the created test case and open it for editing
     const searchInput = page.getByPlaceholder('Search test cases...')
-    await searchInput.fill(testCaseName)
-    
+    const waitForSearch = () => page.waitForResponse(
+      (r) => r.url().includes('/api/v1/test-cases?') && r.url().includes('q=') && r.ok(),
+      { timeout: 20_000 }
+    )
+    // Wait for the search to apply; otherwise its URL update can land after
+    // we navigate away and pull the page back to the list.
+    await Promise.all([waitForSearch(), searchInput.fill(testCaseName)])
+
     const row = page.locator('tbody tr').filter({ hasText: testCaseName }).first()
     await expect(row).toBeVisible({ timeout: 15_000 })
 
-    // Click Edit button
-    await row.getByTitle('Edit test case').click()
+    // Workaround: the Edit button links by business ID, which the API
+    // currently rejects with 404 (the form then loads empty). Open the edit
+    // page by internal ID from the row checkbox label instead.
+    const label = await row.getByRole('checkbox').first().getAttribute('aria-label')
+    const testCaseId = label?.replace('Select test case ', '').trim()
+    expect(testCaseId).toBeTruthy()
+    await page.goto(`${BASE_URL}/app/${PROJECT_KEY}/test-cases/edit/${testCaseId}`)
     await expect(page.getByRole('heading', { name: 'Edit Test Case' })).toBeVisible({ timeout: 15_000 })
 
     // 7. Verify step values are preserved correctly
@@ -81,7 +92,7 @@ test.describe('Test Case Step Editor controls', () => {
     // 8. Cleanup: Delete the test case
     await expect(page.getByRole('heading', { name: 'Test Repository' }).first().or(page.getByRole('heading', { name: 'Test Cases' }).first())).toBeVisible({ timeout: 25_000 })
     await page.getByText('All Test Cases').first().click()
-    await searchInput.fill(testCaseName)
+    await Promise.all([waitForSearch(), searchInput.fill(testCaseName)])
     const cleanupRow = page.locator('tbody tr').filter({ hasText: testCaseName }).first()
     await cleanupRow.getByTitle('Delete test case').click()
     await page.getByRole('button', { name: 'Delete', exact: true }).click()

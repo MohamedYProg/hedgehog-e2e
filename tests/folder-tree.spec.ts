@@ -60,8 +60,9 @@ test.describe('Test Case Folder Tree Hierarchy & Deletions', () => {
     await expect(testRepositoryPage.headingCreateNewTestCase).toBeVisible({ timeout: 15_000 })
 
     // Assert that suiteId select input is pre-populated with our suite name
-    const selectedSuiteText = await testRepositoryPage.suiteSelect.locator('option:checked').textContent()
-    expect(selectedSuiteText).toContain(suiteName)
+    // Retrying assertion: the suite list loads after the form renders, and the
+    // pre-selection only applies once it has.
+    await expect(testRepositoryPage.suiteSelect.locator('option:checked')).toContainText(suiteName, { timeout: 15_000 })
 
     // Fill test case name and create
     await testRepositoryPage.titleInput.fill(childCaseName)

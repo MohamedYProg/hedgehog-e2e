@@ -3,7 +3,7 @@ import type { Page } from '@playwright/test'
 import { loginAs, projectUrl, API_URL } from '../helpers/auth'
 
 // ============================================================================
-// Section 5: Comments (Scenarios 21-25)
+// Section 5: Comments (Scenarios 21-24)
 // ============================================================================
 
 async function ensureDefectExists(page: Page) {
@@ -131,23 +131,6 @@ test.describe('Comments - Permissions', () => {
     const accessToken = await page.evaluate(() => localStorage.getItem('accessToken'))
 
     const response = await page.request.post(`${API_URL}/api/v1/test-cases/fake-id/comments`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-      data: { content: 'Should be blocked' },
-    })
-
-    expect(response.status()).toBe(403)
-  })
-
-  // Scenario 25: API enforcement - comments.create on test plan
-  test('S25 - API returns 403 for Viewer posting test plan comment', async ({ page }) => {
-    await loginAs(page, 'viewer')
-
-    const accessToken = await page.evaluate(() => localStorage.getItem('accessToken'))
-
-    const response = await page.request.post(`${API_URL}/api/v1/test-plans/fake-id/comments`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',

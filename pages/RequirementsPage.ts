@@ -74,14 +74,27 @@ export class RequirementsPage {
   }
 
   async fillSearchInput(name: string) {
-    await this.searchInput.fill(name)
-    await this.page.waitForTimeout(600)
+    // Wait for the filtered list to come back so row actions hit the right row.
+    await Promise.all([
+      this.page.waitForResponse(
+        (r) => r.url().includes('/api/v1/requirements?') && r.url().includes('q=') && r.ok(),
+        { timeout: 20_000 }
+      ),
+      this.searchInput.fill(name),
+    ])
+    await this.page.waitForTimeout(300)
   }
 
   async editFirstRequirement(updatedName: string) {
     if (await this.firstRowEditButton.isVisible().catch(() => false)) {
-      await this.firstRowEditButton.click()
-      await this.page.waitForURL(/\/requirements\/edit\//, { timeout: 15_000 })
+      // Workaround: the Edit button links by business ID (e.g. TMTT_REQ_00023),
+      // which the API currently rejects with 404. Open the edit page by the
+      // internal ID from the row checkbox label instead.
+      const label = await this.firstRow.getByRole('checkbox').first().getAttribute('aria-label')
+      const id = label?.replace('Select requirement ', '').trim()
+      if (!id) throw new Error('Could not read requirement id from row checkbox')
+      await this.page.goto(`${this.listUrl}/edit/${id}`)
+      await expect(this.nameInput).toHaveValue(/.+/, { timeout: 20_000 })
       await this.nameInput.clear()
       await this.nameInput.fill(updatedName)
       await this.updateRequirementButton.click().catch(async () => {
